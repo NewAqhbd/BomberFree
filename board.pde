@@ -5,13 +5,7 @@ enum TypeCell
 
 class Board
 {
-  TypeCell _cells[][] = {
-                          {TypeCell.WALL,TypeCell.WALL,TypeCell.WALL,TypeCell.WALL,TypeCell.WALL,TypeCell.WALL},
-                          {TypeCell.WALL,TypeCell.DESTRUCTIBLE_WALL,TypeCell.EMPTY,TypeCell.EMPTY,TypeCell.EMPTY, TypeCell.WALL},
-                          {TypeCell.EMPTY,TypeCell.EMPTY,TypeCell.DESTRUCTIBLE_WALL,TypeCell.EXIT_DOOR,TypeCell.EMPTY, TypeCell.WALL},
-                          {TypeCell.DESTRUCTIBLE_WALL,TypeCell.DESTRUCTIBLE_WALL,TypeCell.DESTRUCTIBLE_WALL,TypeCell.EMPTY,TypeCell.EMPTY, TypeCell.WALL},
-                          {TypeCell.WALL,TypeCell.WALL,TypeCell.WALL,TypeCell.WALL,TypeCell.WALL,TypeCell.WALL},
-                        };
+  TypeCell _cells[][];
   PImage _sprite;      
   PImage _sprites;
   PVector _drawPosition;
@@ -26,6 +20,40 @@ class Board
     _nbCellsX = nbCellsX;
     _nbCellsY = nbCellsY;
     _cellSize = int(min(drawSize.x, drawSize.y) / max(nbCellsX, nbCellsY));
+    
+    _cells = new TypeCell[nbCellsY][nbCellsX];
+    String[] lines = loadStrings("levels/level1.txt");
+    for (int nbLine = 1; nbLine < lines.length; nbLine++) { //Lines //<>//
+      for (int nbCell = 0; nbCell < lines[nbLine].length(); nbCell++) { //Characters
+        println(lines[nbLine].length());
+        switch(lines[nbLine].charAt(nbCell)) {
+          case 'x':
+            _cells[nbLine-1][nbCell] = TypeCell.WALL;
+            println("WALL");
+            break;
+          case 'v':
+            _cells[nbLine-1][nbCell] = TypeCell.EMPTY;
+            break;
+          case 'o':
+            _cells[nbLine-1][nbCell] = TypeCell.DESTRUCTIBLE_WALL;
+            break;
+          case 'S':
+            _cells[nbLine-1][nbCell] = TypeCell.EXIT_DOOR;
+            break;
+          case 'B':
+            _cells[nbLine-1][nbCell] = TypeCell.EMPTY;
+            initHeroPosition = new PVector(nbCell * _cellSize + _cellSize/2, nbLine * _cellSize + _cellSize/2);
+            break;
+          case 'M':
+            _cells[nbLine-1][nbCell] = TypeCell.EMPTY;
+            initMonstersPosition = (PVector[]) append(initMonstersPosition, new PVector(nbLine - 1, nbCell));
+            break;
+          default:
+            _cells[nbLine-1][nbCell] = TypeCell.EMPTY;
+            break;
+        }
+      }
+    }
   }
 
   //Get the position on the screen
@@ -53,6 +81,10 @@ class Board
             break;
           case EXIT_DOOR:
             _sprite = _sprites.get(144, 48, 16, 16);
+            image(_sprite, _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
+            break;
+          default:
+            _sprite = _sprites.get(48, 96, 16, 16);
             image(_sprite, _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             break;
         }

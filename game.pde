@@ -43,6 +43,19 @@ class Game
       case 'd':
         _hero.move(_board, new PVector(1, 0));
         break;
+        
+      case 'Z':
+        _hero.move(_board, new PVector(0, -1));
+        break;
+      case 'Q':
+        _hero.move(_board, new PVector(-1, 0));
+        break;
+      case 'S':
+        _hero.move(_board, new PVector(0, 1));
+        break;
+      case 'D':
+        _hero.move(_board, new PVector(1, 0));
+        break;
     }
   }
 }
