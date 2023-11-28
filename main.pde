@@ -1,19 +1,19 @@
 Game game;
 boolean game1 = true;
 PVector coordBoard;
-PVector sizeBoard = new PVector(800, 600);
+PVector sizeBoard = new PVector(900, 800);
 PVector initHeroPosition;
 int initHeroPositionX;
 int initHeroPositionY;
 PVector[] initMonstersPosition = new PVector[0];
 
 void setup() {
-  size(800, 800, P2D);
+  size(900, 900, P2D);
   coordBoard = new PVector(0, 0);
-  frameRate(20);
+  frameRate(40);
 }
 
-void draw() { //<>//
+void draw() { //<>// //<>//
   
   if(game1) {
     game1 = false;
@@ -23,8 +23,6 @@ void draw() { //<>//
     
     Board board = new Board(coordBoard, sizeBoard, nbCellsX, nbCellsY);
     Hero hero = new Hero(initHeroPosition, initHeroPositionX, initHeroPositionY, board._cellSize);
-    println(board._cellSize);
-    println(hero._position);
     game = new Game(board, hero);
   }
   
