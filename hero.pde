@@ -7,6 +7,9 @@ class Hero {
   float _size;
   // if hero was hit by a bomb
   boolean _wasHit;
+  float _verticalOffset;
+  PImage _sprites;
+  PImage _heroSprite;
 
   Hero() {
     _wasHit = false;
@@ -17,6 +20,10 @@ class Hero {
     _cellX = cellX;
     _cellY = cellY;
     _size = size/16;
+    _wasHit = false;
+    _verticalOffset = 4 * _size;
+    _sprites = loadImage("data/img/characters.png");
+    _heroSprite = _sprites.get(17, 0, 15, 24);
   }
 
   void move(Board board, PVector direction) {
@@ -32,11 +39,8 @@ class Hero {
   }
 
   void drawIt() {
-    PImage sprites = loadImage("data/img/characters.png");
-    PImage sprite = sprites.get(17, 0, 15, 24);
-    float verticalOffset = 4 * _size;
     imageMode(CENTER);
-    image(sprite, _position.x, _position.y - verticalOffset, 16 * _size, 24 * _size);
+    image(_heroSprite, _position.x, _position.y - _verticalOffset, 16 * _size, 24 * _size);
     imageMode(CORNER);
   }
 }
