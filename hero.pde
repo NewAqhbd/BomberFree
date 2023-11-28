@@ -11,9 +11,12 @@ class Hero {
   PImage _sprites;
   PImage _heroSprite;
 
+
   Hero() {
     _wasHit = false;
   }
+  
+  
   
   Hero(PVector position, int cellX, int cellY, float size) {
     _position = position;
@@ -26,17 +29,28 @@ class Hero {
     _heroSprite = _sprites.get(17, 0, 15, 24);
   }
 
+
+
   void move(Board board, PVector direction) {
-    _cellX += direction.x;
-    _cellY += direction.y;
-    _position.set(_position.x + direction.x * board._cellSize, _position.y + direction.y * board._cellSize);
+    if (
+          board._cells[int(_cellY + direction.y)][int(_cellX + direction.x)] == TypeCell.EMPTY
+       || board._cells[int(_cellY + direction.y)][int(_cellX + direction.x)] == TypeCell.EXIT_DOOR     
+       ) {
+      _cellX += direction.x;
+      _cellY += direction.y;
+      _position = board.getCellCenter(_cellX, _cellY);
+    }
     println("X : " + _cellX);
     println("Y : " + _cellY);
   }
 
+
+
   void update(Board board) {
     //Changes of PV, Bonus, wasHit ...
   }
+
+
 
   void drawIt() {
     imageMode(CENTER);
