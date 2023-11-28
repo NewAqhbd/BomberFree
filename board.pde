@@ -43,6 +43,8 @@ class Board
           case 'B':
             _cells[nbLine-1][nbCell] = TypeCell.EMPTY;
             initHeroPosition = new PVector(nbCell * _cellSize + _cellSize/2, (nbLine-1) * _cellSize + _cellSize/2);
+            initHeroPositionX = nbLine-1;
+            initHeroPositionY = nbCell;
             println("initHero : " + initHeroPosition);
             break;
           case 'M':
