@@ -3,6 +3,8 @@ boolean game1 = true;
 PVector coordBoard;
 PVector sizeBoard = new PVector(800, 600);
 PVector initHeroPosition;
+int initHeroPositionX;
+int initHeroPositionY;
 PVector[] initMonstersPosition = new PVector[0];
 
 void setup() {
@@ -20,7 +22,7 @@ void draw() { //<>//
     int nbCellsX = lines[1].length(); //Second line chosen arbitrarily beacause same nbCell for each line.
     
     Board board = new Board(coordBoard, sizeBoard, nbCellsX, nbCellsY);
-    Hero hero = new Hero(initHeroPosition, nbCellsX, nbCellsY, board._cellSize);
+    Hero hero = new Hero(initHeroPosition, initHeroPositionX, initHeroPositionY, board._cellSize);
     println(board._cellSize);
     println(hero._position);
     game = new Game(board, hero);
