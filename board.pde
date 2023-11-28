@@ -20,9 +20,9 @@ class Board
   PImage _spriteBorderWallRight;
   PImage _spriteBorderWallTop;
   PImage _spriteBorderWallBottom;
-
   PImage _spriteDestructibleWall;
   PImage _spriteExitDoor;
+  
 
   Board(PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY) {
     _drawPosition = drawPosition;
@@ -30,7 +30,7 @@ class Board
     _nbCellsX = nbCellsX; //<>//
     _nbCellsY = nbCellsY;
     _cellSize = int(min(drawSize.x, drawSize.y) / max(nbCellsX, nbCellsY));  
-    _sprites = loadImage("data/img/tiles.png");
+    _sprites = loadImage("data/img/tiles.png");   
     
     //Initialzing _cells
     _cells = new TypeCell[nbCellsY][nbCellsX];
@@ -52,7 +52,7 @@ class Board
             break;
           case 'B':
             _cells[nbLine-1][nbCell] = TypeCell.EMPTY;
-            initHeroPosition = new PVector(nbCell * _cellSize + _cellSize/2, (nbLine-1) * _cellSize + _cellSize/2);
+            initHeroPosition = getCellCenter(nbCell, nbLine-1);
             initHeroPositionX = nbLine-1;
             initHeroPositionY = nbCell;
             break;
@@ -65,7 +65,7 @@ class Board
             break;
         }
       }
-    }
+    }   
     
     //Initializing sprites
     _spriteEmpty = _sprites.get(48, 96, 16, 16);
@@ -77,16 +77,19 @@ class Board
     _spriteDestructibleWall = _sprites.get(64, 64, 16, 16);
     _spriteExitDoor = _sprites.get(144, 48, 16, 16);
   }
+  
+
 
   //Get the position on the screen
   PVector getCellCenter(int i, int j) {
     return new PVector(i * _cellSize + _cellSize/2, j * _cellSize + _cellSize/2);
   }
+  
+  
 
   void drawIt() {
     for (int i = 0; i < _cells.length; i++) {
-      for (int j = 0; j < _cells[i].length; j++) {
-        
+      for (int j = 0; j < _cells[i].length; j++) {        
         switch (_cells[i][j]) {
           case EMPTY:
             image(_spriteEmpty, _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
@@ -113,10 +116,9 @@ class Board
             image(_spriteEmpty, _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             break;
         }
-        
       }
     }
   }
-  
+
   
 }
