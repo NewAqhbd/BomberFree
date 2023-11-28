@@ -13,7 +13,7 @@ void setup() {
   frameRate(40);
 }
 
-void draw() { //<>//
+void draw() {
   
   if(game1) {
     game1 = false;
