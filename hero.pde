@@ -26,7 +26,7 @@ class Hero {
     _wasHit = false;
     _verticalOffset = 4 * _size;
     _sprites = loadImage("data/img/characters.png");
-    _heroSprite = _sprites.get(17, 0, 15, 24);
+    _heroSprite = _sprites.get(16, 0, 16, 24);
   }
 
 
