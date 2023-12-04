@@ -40,14 +40,13 @@ class Hero {
       _cellY += direction.y;
       _position = board.getCellCenter(_cellX, _cellY);
     }
-    println("X : " + _cellX);
-    println("Y : " + _cellY);
   }
+  
 
 
-
+  //Changes of PV, Bonus, wasHit, initPosition ...
   void update(Board board) {
-    //Changes of PV, Bonus, wasHit ...
+    
   }
 
 
