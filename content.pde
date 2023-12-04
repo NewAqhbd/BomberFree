@@ -1,6 +1,5 @@
 class Content {
   PImage _imageSprites;
-  PImage[] _arraySprites;
   int _spriteSizeX;
   int _spriteSizeY;   
   String[] lines;
@@ -49,10 +48,10 @@ class Content {
       }
     }
 
-    _arraySprites = new PImage[0];
+    arraySprites = new PImage[0];
     for (int y = 0; y < _imageSprites.height; y += _spriteSizeY) {
       for (int x = 0; x < _imageSprites.width; x += _spriteSizeX) {
-        _arraySprites = (PImage[]) append(_arraySprites, _imageSprites.get(x, y, _spriteSizeX, _spriteSizeY)); 
+        arraySprites = (PImage[]) append(arraySprites, _imageSprites.get(x, y, _spriteSizeX, _spriteSizeY)); 
       }
     }   
   }

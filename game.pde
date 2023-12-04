@@ -2,6 +2,7 @@ class Game
 {
   Board _board;
   Hero _hero;
+  Bomb _bomb;
   String _levelName;
 
 
@@ -12,21 +13,24 @@ class Game
   
   
   
-  Game(Board board, Hero hero) {
+  Game(Board board, Hero hero, Bomb bomb) {
     _board = board;
     _hero = hero;
+    _bomb = bomb;
   }
 
 
 
   void update() {
     _hero.update(_board);
+    _bomb.update(_board, _hero);
   }
 
 
 
   void drawIt() {
     _board.drawIt();
+    _bomb.drawIt();
     _hero.drawIt();
   }
 
@@ -45,8 +49,7 @@ class Game
         break;
       case 'd':
         _hero.move(_board, new PVector(1, 0));
-        break;
-        
+        break;       
       case 'Z':
         _hero.move(_board, new PVector(0, -1));
         break;
@@ -59,6 +62,9 @@ class Game
       case 'D':
         _hero.move(_board, new PVector(1, 0));
         break;
+        
+      case 32:
+        _bomb.drop(_board, _hero);
     }
   }
 }

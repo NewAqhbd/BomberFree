@@ -6,10 +6,11 @@ PVector initHeroPosition;
 int initHeroPositionX;
 int initHeroPositionY;
 PVector[] initMonstersPosition = new PVector[0];
+PImage[] arraySprites;
 
 void setup() {
   size(1200, 900, P2D);
-  coordBoard = new PVector(width/8, height/8);
+  coordBoard = new PVector(0, 0);
   frameRate(60);
 }
 
@@ -20,7 +21,8 @@ void draw() {
     Content boardContent = new Content("levels/level1.txt", "data/img/tiles.png", 16, 16);
     Board board = new Board(boardContent, coordBoard, sizeBoard, boardContent._nbCellsX, boardContent._nbCellsY);
     Hero hero = new Hero(initHeroPosition, initHeroPositionX, initHeroPositionY, board._cellSize);
-    game = new Game(board, hero);
+    Bomb bomb = new Bomb(board);
+    game = new Game(board, hero, bomb);
   }
   
   game.update();
