@@ -5,46 +5,51 @@ class Bomb {
   int _cellX, _cellY;
   PVector _position;
   int _explosionRadius;
-  int _nbBombMax;
   PImage _sprite;
   int _spriteSize;
-  ArrayList<Bomb> _arrayBombs;
+  ArrayList<PVector> _arrayPosBombs;
+
 
 
   Bomb(Board board) {
-    _nbBombMax = 2;
     _explosionRadius = 2;
     _toExplode = false;
     _timeToExplode = 2000;
-    _arrayBombs = new ArrayList<Bomb>();
     _sprite = arraySprites[35];
     _spriteSize = board._cellSize;
     _position = initHeroPosition;
+    _arrayPosBombs = new ArrayList<PVector>();
   }
   
   
-  Bomb(int explosionRadius, int nbMax, PVector position, int cellX, int cellY, float timeBombPlanted) {
+  
+  Bomb(int explosionRadius, PVector position, int cellX, int cellY, float timeBombPlanted) {
     _explosionRadius = explosionRadius;
-    _nbBombMax = nbMax;
     _position = position;
     _cellX = cellX;
     _cellY = cellY;
     _timeBombPlanted = timeBombPlanted;
   }
   
+  
+  
   void drop(Board board, Hero hero) {
     _cellX = hero._cellX;
     _cellY = hero._cellY;
     _position = board.getCellCenter(_cellX,_cellY);
-    if (_arrayBombs.size() < _nbBombMax) {
+    if (hero._arrayBombs.size() < hero._nbBombMax) {
       _timeBombPlanted = millis();
-      _arrayBombs.add(new Bomb(_explosionRadius, _nbBombMax, _position, _cellX, _cellY, _timeBombPlanted));
+      hero._arrayBombs.add(new Bomb(hero._explosionRadius, _position, _cellX, _cellY, _timeBombPlanted));
+      _arrayPosBombs.add(_position);
     }     
   }
+  
+  
 
+  //Update the state of each hero's bombs
   void update(Board board, Hero hero) { //<>//
-    for (int nbBomb = 0; nbBomb < _arrayBombs.size(); nbBomb++) {
-      Bomb bombDropped = _arrayBombs.get(nbBomb);
+    for (int nbBomb = 0; nbBomb < hero._arrayBombs.size(); nbBomb++) {
+      Bomb bombDropped = hero._arrayBombs.get(nbBomb);
       if(millis() - bombDropped._timeBombPlanted > _timeToExplode) {
         bombDropped._toExplode = true;
       }
@@ -57,9 +62,9 @@ class Bomb {
         while (posY > bombDropped._cellY - bombDropped._explosionRadius && board._cells[posY][bombDropped._cellX] != TypeCell.WALL) {
           posY--;
           //Explodes nearby bomb
-          for (int bombToCheck = 0; bombToCheck < _arrayBombs.size(); bombToCheck++) {
-            if (_arrayBombs.get(bombToCheck)._cellX == bombDropped._cellX && _arrayBombs.get(bombToCheck)._cellY == posY)
-              _arrayBombs.get(bombToCheck)._toExplode = true;
+          for (int bombToCheck = 0; bombToCheck < hero._arrayBombs.size(); bombToCheck++) {
+            if (hero._arrayBombs.get(bombToCheck)._cellX == bombDropped._cellX && hero._arrayBombs.get(bombToCheck)._cellY == posY)
+              hero._arrayBombs.get(bombToCheck)._toExplode = true;
           }
           //Explodes nearby destructible wall
           if (board._cells[posY][bombDropped._cellX] == TypeCell.DESTRUCTIBLE_WALL) {
@@ -72,9 +77,9 @@ class Bomb {
         posY = bombDropped._cellY;
         while (posY < bombDropped._cellY + bombDropped._explosionRadius && board._cells[posY][bombDropped._cellX] != TypeCell.WALL) {
           posY++;
-          for (int bombToCheck = 0; bombToCheck < _arrayBombs.size(); bombToCheck++) {
-            if (_arrayBombs.get(bombToCheck)._cellX == bombDropped._cellX && _arrayBombs.get(bombToCheck)._cellY == posY)
-              _arrayBombs.get(bombToCheck)._toExplode = true;
+          for (int bombToCheck = 0; bombToCheck < hero._arrayBombs.size(); bombToCheck++) {
+            if (hero._arrayBombs.get(bombToCheck)._cellX == bombDropped._cellX && hero._arrayBombs.get(bombToCheck)._cellY == posY)
+              hero._arrayBombs.get(bombToCheck)._toExplode = true;
           }
           if (board._cells[posY][bombDropped._cellX] == TypeCell.DESTRUCTIBLE_WALL) {
             board._cells[posY][bombDropped._cellX] = TypeCell.EMPTY;
@@ -87,9 +92,9 @@ class Bomb {
        posX = bombDropped._cellX;
         while (posX > bombDropped._cellX - bombDropped._explosionRadius && board._cells[bombDropped._cellY][posX] != TypeCell.WALL) {
           posX--;
-          for (int bombToCheck = 0; bombToCheck < _arrayBombs.size(); bombToCheck++) {
-            if (_arrayBombs.get(bombToCheck)._cellY == bombDropped._cellY && _arrayBombs.get(bombToCheck)._cellX == posX)
-              _arrayBombs.get(bombToCheck)._toExplode = true;
+          for (int bombToCheck = 0; bombToCheck < hero._arrayBombs.size(); bombToCheck++) {
+            if (hero._arrayBombs.get(bombToCheck)._cellY == bombDropped._cellY && hero._arrayBombs.get(bombToCheck)._cellX == posX)
+              hero._arrayBombs.get(bombToCheck)._toExplode = true;
           }
           if (board._cells[bombDropped._cellY][posX] == TypeCell.DESTRUCTIBLE_WALL) {
             board._cells[bombDropped._cellY][posX] = TypeCell.EMPTY;
@@ -101,9 +106,9 @@ class Bomb {
         posX = bombDropped._cellX;
         while (posX < bombDropped._cellX + bombDropped._explosionRadius && board._cells[bombDropped._cellY][posX] != TypeCell.WALL) {
           posX++;
-          for (int bombToCheck = 0; bombToCheck < _arrayBombs.size(); bombToCheck++) {
-            if (_arrayBombs.get(bombToCheck)._cellY == bombDropped._cellY && _arrayBombs.get(bombToCheck)._cellX == posX)
-              _arrayBombs.get(bombToCheck)._toExplode = true;
+          for (int bombToCheck = 0; bombToCheck < hero._arrayBombs.size(); bombToCheck++) {
+            if (hero._arrayBombs.get(bombToCheck)._cellY == bombDropped._cellY && hero._arrayBombs.get(bombToCheck)._cellX == posX)
+              hero._arrayBombs.get(bombToCheck)._toExplode = true;
           }
           if (board._cells[bombDropped._cellY][posX] == TypeCell.DESTRUCTIBLE_WALL) {
             board._cells[bombDropped._cellY][posX] = TypeCell.EMPTY;
@@ -111,17 +116,19 @@ class Bomb {
           }
         }
 
-        _arrayBombs.remove(nbBomb);
+        hero._arrayBombs.remove(nbBomb);
+        _arrayPosBombs.remove(nbBomb);
       }
     }
   }
  
+ 
   
   void drawIt() {
-    if (_arrayBombs.size() > 0) {
-      for (int nbBomb = 0; nbBomb < _arrayBombs.size(); nbBomb++) {
+    if (_arrayPosBombs.size() > 0) {
+      for (int nbBomb = 0; nbBomb < _arrayPosBombs.size(); nbBomb++) {
         imageMode(CENTER);
-        image(_sprite, _arrayBombs.get(nbBomb)._position.x, _arrayBombs.get(nbBomb)._position.y, _spriteSize, _spriteSize);
+        image(_sprite, _arrayPosBombs.get(nbBomb).x, _arrayPosBombs.get(nbBomb).y, _spriteSize, _spriteSize);
         imageMode(CORNER);
       }
     }
