@@ -10,6 +10,12 @@ class Hero {
   float _verticalOffset;
   PImage _sprites;
   PImage _heroSprite;
+  
+  
+  //Bombs
+  ArrayList<Bomb> _arrayBombs;
+  int _explosionRadius;
+  int _nbBombMax;
 
 
   Hero() {
@@ -27,6 +33,9 @@ class Hero {
     _verticalOffset = 4 * _size;
     _sprites = loadImage("data/img/characters.png");
     _heroSprite = _sprites.get(16, 0, 16, 24);
+    _explosionRadius = 1;
+    _nbBombMax = 1;
+    _arrayBombs = new ArrayList<Bomb>();
   }
 
 
