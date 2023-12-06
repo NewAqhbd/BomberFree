@@ -12,7 +12,6 @@ class Bomb {
 
 
   Bomb(Board board) {
-    _explosionRadius = 2;
     _toExplode = false;
     _timeToExplode = 2000;
     _sprite = arraySprites[35];
@@ -48,7 +47,7 @@ class Bomb {
 
   //Update the state of each hero's bombs
   void update(Board board, Hero hero) { //<>//
-    for (int nbBomb = 0; nbBomb < hero._arrayBombs.size(); nbBomb++) {
+    for (int nbBomb = 0; nbBomb < hero._arrayBombs.size(); nbBomb++) { //<>//
       Bomb bombDropped = hero._arrayBombs.get(nbBomb);
       if(millis() - bombDropped._timeBombPlanted > _timeToExplode) {
         bombDropped._toExplode = true;
