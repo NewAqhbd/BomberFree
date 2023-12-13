@@ -1,6 +1,9 @@
 class Hero {
   // position on screen
   PVector _position;
+  PVector _moveDirection;
+  float _timeStartMoving;
+  boolean _isStartingMoving;
   // position on board
   int _cellX, _cellY;
   // display size
@@ -26,6 +29,7 @@ class Hero {
   
   Hero(PVector position, int cellX, int cellY, float size) {
     _position = position;
+    _moveDirection = new PVector(0,0);
     _cellX = cellX;
     _cellY = cellY;
     _size = size/16;
@@ -37,25 +41,25 @@ class Hero {
     _nbBombMax = 1;
     _arrayBombs = new ArrayList<Bomb>();
   }
-
-
-
-  void move(Board board, PVector direction) {
-    if (
-          board._cells[int(_cellY + direction.y)][int(_cellX + direction.x)] == TypeCell.EMPTY
-       || board._cells[int(_cellY + direction.y)][int(_cellX + direction.x)] == TypeCell.EXIT_DOOR     
-       ) {
-      _cellX += direction.x;
-      _cellY += direction.y;
-      _position = board.getCellCenter(_cellX, _cellY);
-    }
-  }
   
 
 
   //Changes of PV, Bonus, wasHit, initPosition ...
   void update(Board board) {
-    
+    if (millis() - _timeStartMoving > 200 || _isStartingMoving) {
+    int nextDirectionX = int(_cellX + _moveDirection.x);
+    int nextDirectionY = int(_cellY + _moveDirection.y);
+    if (
+          board._cells[nextDirectionY][nextDirectionX] == TypeCell.EMPTY
+       || board._cells[nextDirectionY][nextDirectionX] == TypeCell.EXIT_DOOR     
+       ) {
+      _cellX += _moveDirection.x;
+      _cellY += _moveDirection.y;
+      _position = board.getCellCenter(_cellX, _cellY);
+    }  
+      _timeStartMoving = millis();
+      _isStartingMoving = false;
+    }
   }
 
 
