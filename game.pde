@@ -39,28 +39,44 @@ class Game
   void handleKey(int k) {
     switch (k) {
       case 'z':
-        _hero.move(_board, new PVector(0, -1));
+        _hero._moveDirection = new PVector(0, -1);
+        _hero._timeStartMoving = millis();
+        _hero._isStartingMoving = true;
         break;
       case 'q':
-        _hero.move(_board, new PVector(-1, 0));
+        _hero._moveDirection = new PVector(-1, 0);
+        _hero._timeStartMoving = millis();
+        _hero._isStartingMoving = true;
         break;
       case 's':
-        _hero.move(_board, new PVector(0, 1));
+        _hero._moveDirection = new PVector(0, 1);
+        _hero._timeStartMoving = millis();
+        _hero._isStartingMoving = true;
         break;
       case 'd':
-        _hero.move(_board, new PVector(1, 0));
+        _hero._moveDirection = new PVector(1, 0);
+        _hero._timeStartMoving = millis();
+        _hero._isStartingMoving = true;
         break;       
       case 'Z':
-        _hero.move(_board, new PVector(0, -1));
+        _hero._moveDirection = new PVector(0, -1);
+        _hero._timeStartMoving = millis();
+        _hero._isStartingMoving = true;
         break;
       case 'Q':
-        _hero.move(_board, new PVector(-1, 0));
+        _hero._moveDirection = new PVector(-1, 0);
+        _hero._timeStartMoving = millis();
+        _hero._isStartingMoving = true;
         break;
       case 'S':
-        _hero.move(_board, new PVector(0, 1));
+        _hero._moveDirection = new PVector(0, 1);
+        _hero._timeStartMoving = millis();
+        _hero._isStartingMoving = true;
         break;
       case 'D':
-        _hero.move(_board, new PVector(1, 0));
+        _hero._moveDirection = new PVector(1, 0);
+        _hero._timeStartMoving = millis();
+        _hero._isStartingMoving = true;
         break;
         
       case 32:
