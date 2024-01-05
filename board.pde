@@ -37,6 +37,7 @@ class Board
       int cellX = (int) monsterPosition.x;
       int cellY = (int) monsterPosition.y;
       PVector position = getCellCenter(cellX, cellY);
+      //create a new monster instance and associate it with the board instance
       _monsters[i] = new Monster(position, cellX, cellY, _cellSize, this);
     }
   }
