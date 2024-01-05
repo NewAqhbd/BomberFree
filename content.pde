@@ -6,7 +6,9 @@ class Content {
   int _nbCellsX; //Second line chosen arbitrarily because same nbCell for each line.
   int _nbCellsY;
   TypeCell[][] _cells;
-  
+  PVector[] _monstersPositions = new PVector[0];
+
+
   Content(String levelPath, String spritesPath, int spriteSizeX, int spriteSizeY) {
     _imageSprites = loadImage(spritesPath);
     _spriteSizeX = spriteSizeX;
@@ -39,7 +41,7 @@ class Content {
             break;
           case 'M':
             _cells[nbLine-1][nbCell] = TypeCell.EMPTY;
-            initMonstersPosition = (PVector[]) append(initMonstersPosition, new PVector(nbLine - 1, nbCell));
+            _monstersPositions = (PVector[]) append(_monstersPositions, new PVector(nbCell, nbLine - 1));
             break;
           default:
             _cells[nbLine-1][nbCell] = TypeCell.EMPTY;
