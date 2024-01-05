@@ -45,7 +45,7 @@ class Bomb {
   
   
 
-  //Update the state of each hero's bombs
+  //Update the state of each hero's bombs and their surrounding area
   void update(Board board, Hero hero) { //<>//
     for (int nbBomb = 0; nbBomb < hero._arrayBombs.size(); nbBomb++) { //<>//
       Bomb bombDropped = hero._arrayBombs.get(nbBomb);

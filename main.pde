@@ -30,12 +30,48 @@ void draw() {
     game = new Game(board, hero, bomb);
   }
 
+  
+
+    if (hero._up) {//MoveUp
+      hero.move(board, new PVector(0, -1));
+    }
+    else if (hero._down) { //MoveDown
+      hero.move(board, new PVector(0, 1));
+    }
+    else if (hero._right) { //MoveRight
+      hero.move(board, new PVector(1, 0));
+    }
+    else if (hero._left) { //MoveLeft
+      hero.move(board, new PVector(-1, 0));
+    }
+
+
   game.update();
   game.drawIt();
 }
 
 void keyPressed() {
   game.handleKey(key);
+  if (key == 'z' || key == 'Z')
+    hero._up = true;
+  if (key == 's' || key == 'S')
+    hero._down = true;
+  if (key == 'q' || key == 'Q')  
+    hero._left = true;
+  if (key == 'd' || key == 'D')  
+    hero._right = true;
+}
+
+void keyReleased() {
+  //hero._isMovePossible = false;
+  if (key == 'z' || key == 'Z')
+    hero._up = false;
+  if (key == 's' || key == 'S')
+    hero._down = false;
+  if (key == 'q' || key == 'Q')  
+    hero._left = false;
+  if (key == 'd' || key == 'D')  
+    hero._right = false;
 }
 
 

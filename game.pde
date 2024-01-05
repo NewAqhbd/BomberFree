@@ -37,32 +37,7 @@ class Game
 
 
   void handleKey(int k) {
-    switch (k) {
-      case 'z':
-        hero.move(board, new PVector(0, -1));
-        break;
-      case 'q':
-        hero.move(board, new PVector(-1, 0));
-        break;
-      case 's':
-        hero.move(board, new PVector(0, 1));
-        break;
-      case 'd':
-        hero.move(board, new PVector(1, 0));
-        break;       
-      case 'Z':
-        hero.move(board, new PVector(0, -1));
-        break;
-      case 'Q':
-        hero.move(board, new PVector(-1, 0));
-        break;
-      case 'S':
-        hero.move(board, new PVector(0, 1));
-        break;
-      case 'D':
-        hero.move(board, new PVector(1, 0));
-        break;
-        
+    switch (k) {        
       case 32:
         bomb.drop(board, hero);
         break;
