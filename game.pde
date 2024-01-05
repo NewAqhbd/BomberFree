@@ -37,50 +37,10 @@ class Game
 
 
   void handleKey(int k) {
-    switch (k) {
-      case 'z':
-        _hero._moveDirection = new PVector(0, -1);
-        _hero._timeStartMoving = millis();
-        _hero._isStartingMoving = true;
-        break;
-      case 'q':
-        _hero._moveDirection = new PVector(-1, 0);
-        _hero._timeStartMoving = millis();
-        _hero._isStartingMoving = true;
-        break;
-      case 's':
-        _hero._moveDirection = new PVector(0, 1);
-        _hero._timeStartMoving = millis();
-        _hero._isStartingMoving = true;
-        break;
-      case 'd':
-        _hero._moveDirection = new PVector(1, 0);
-        _hero._timeStartMoving = millis();
-        _hero._isStartingMoving = true;
-        break;       
-      case 'Z':
-        _hero._moveDirection = new PVector(0, -1);
-        _hero._timeStartMoving = millis();
-        _hero._isStartingMoving = true;
-        break;
-      case 'Q':
-        _hero._moveDirection = new PVector(-1, 0);
-        _hero._timeStartMoving = millis();
-        _hero._isStartingMoving = true;
-        break;
-      case 'S':
-        _hero._moveDirection = new PVector(0, 1);
-        _hero._timeStartMoving = millis();
-        _hero._isStartingMoving = true;
-        break;
-      case 'D':
-        _hero._moveDirection = new PVector(1, 0);
-        _hero._timeStartMoving = millis();
-        _hero._isStartingMoving = true;
-        break;
-        
+    switch (k) {        
       case 32:
-        _bomb.drop(_board, _hero);
+        bomb.drop(board, hero);
+        break;
     }
   }
 }
