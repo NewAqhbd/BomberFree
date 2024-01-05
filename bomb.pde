@@ -8,12 +8,13 @@ class Bomb {
   PImage _sprite;
   int _spriteSize;
   ArrayList<PVector> _arrayPosBombs;
+  int _currentSpriteIndex;
 
 
 
   Bomb(Board board) {
     _toExplode = false;
-    _timeToExplode = 2000;
+    _timeToExplode = 3000;
     _sprite = arraySprites[35];
     _spriteSize = board._cellSize;
     _position = initHeroPosition;
@@ -38,6 +39,8 @@ class Bomb {
     _position = board.getCellCenter(_cellX,_cellY);
     if (hero._arrayBombs.size() < hero._nbBombMax) {
       _timeBombPlanted = millis();
+      _currentSpriteIndex = 35;
+      _sprite = arraySprites[_currentSpriteIndex];
       hero._arrayBombs.add(new Bomb(hero._explosionRadius, _position, _cellX, _cellY, _timeBombPlanted));
       _arrayPosBombs.add(_position);
     }     
@@ -118,6 +121,15 @@ class Bomb {
         hero._arrayBombs.remove(nbBomb);
         _arrayPosBombs.remove(nbBomb);
       }
+    }
+    //change the image of the bomb every 1 second
+    if (millis() - _timeBombPlanted >= 1000 && !_toExplode) {
+        _currentSpriteIndex++;
+        if (_currentSpriteIndex > 37) {
+            _currentSpriteIndex = 35;
+        }
+      _sprite = arraySprites[_currentSpriteIndex];
+      _timeBombPlanted = millis();
     }
   }
  
