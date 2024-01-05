@@ -69,14 +69,14 @@ class Board
               image(arraySprites[52], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             break;
           case DESTRUCTIBLE_WALL:
+            image(arraySprites[44], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);           
+            break;
+          case EXIT_DOOR:
             if (_togglSprite)
               image(arraySprites[38], _drawPosition.x + j * _cellSize, _drawPosition.y + i * _cellSize, _cellSize, _cellSize);
             else 
               image(arraySprites[39], _drawPosition.x + j * _cellSize, _drawPosition.y + i * _cellSize, _cellSize, _cellSize);
             update();            
-            break;
-          case EXIT_DOOR:
-            image(arraySprites[39], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             break;
           default:
             image(arraySprites[63], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
