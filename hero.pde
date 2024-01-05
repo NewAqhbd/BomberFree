@@ -1,4 +1,4 @@
-class Hero {
+class Hero { //<>//
   // position on screen
   PVector _position;
   int _borderUp, _borderDown, _borderLeft, _borderRight;
@@ -55,7 +55,7 @@ class Hero {
   
   
   
-  void move(Board board, PVector direction) { //<>//
+  void move(Board board, PVector direction) {
     boolean canMove = false;
     boolean bombInTargetCell = false;
 
@@ -244,28 +244,6 @@ class Hero {
           
         }
       }
-    if (millis() - _timeStartMoving > 200 || _isStartingMoving) {
-    int nextDirectionX = int(_cellX + _moveDirection.x);
-    int nextDirectionY = int(_cellY + _moveDirection.y);
-    boolean bombInTargetCell = false;
-
-    for (int i = 0; i < _arrayBombs.size(); i++) {
-        Bomb bomb = _arrayBombs.get(i);
-        if (bomb._cellX == nextDirectionX && bomb._cellY == nextDirectionY) {
-            bombInTargetCell = true;
-            break;
-        }
-    }
-    if (!bombInTargetCell &&
-          board._cells[nextDirectionY][nextDirectionX] == TypeCell.EMPTY
-       || board._cells[nextDirectionY][nextDirectionX] == TypeCell.EXIT_DOOR     
-       ) {
-      _cellX += _moveDirection.x;
-      _cellY += _moveDirection.y;
-      _position = board.getCellCenter(_cellX, _cellY);
-    }  
-      _timeStartMoving = millis();
-      _isStartingMoving = false;
     }
     
       _borderUp = int(_position.y - board._cellSize / 2);
