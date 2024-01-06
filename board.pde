@@ -16,7 +16,6 @@ class Board
   boolean _togglSprite = true;
   int _currentTime;
   int _elapsedTime;
-  Monster[] _monsters;
   
   Board(Content content, PVector drawPosition, PVector drawSize, int nbCellsX, int nbCellsY) {
     _drawPosition = drawPosition;
@@ -38,7 +37,7 @@ class Board
       int cellY = (int) monsterPosition.y;
       PVector position = getCellCenter(cellX, cellY);
       //create a new monster instance and associate it with the board instance
-      _monsters[i] = new Monster(position, cellX, cellY, _cellSize, this);
+      _monsters[i] = new Monster(position, cellX, cellY, this);
     }
   }
 
@@ -55,43 +54,34 @@ class Board
         
         switch (_cells[i][j]) {
           case EMPTY:
-            image(arraySprites[63], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
+            image(arrayTileSprites[63], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             break;
           case WALL:
             if (j == 0)
-              image(arraySprites[51], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
+              image(arrayTileSprites[51], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             else if (j == _cells[i].length-1)
-              image(arraySprites[51], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
+              image(arrayTileSprites[51], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             else if (i == 0)
-              image(arraySprites[43], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
+              image(arrayTileSprites[43], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             else if (i == _cells.length-1)
-              image(arraySprites[43], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
+              image(arrayTileSprites[43], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             else
-              image(arraySprites[52], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
+              image(arrayTileSprites[52], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             break;
           case DESTRUCTIBLE_WALL:
-            image(arraySprites[44], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);           
+            image(arrayTileSprites[44], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             break;
           case EXIT_DOOR:
-            if (_togglSprite)
-              image(arraySprites[38], _drawPosition.x + j * _cellSize, _drawPosition.y + i * _cellSize, _cellSize, _cellSize);
-            else 
-              image(arraySprites[39], _drawPosition.x + j * _cellSize, _drawPosition.y + i * _cellSize, _cellSize, _cellSize);
-            update();            
+            image(arrayTileSprites[39], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             break;
           default:
-            image(arraySprites[63], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
+            image(arrayTileSprites[63], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             break;
         }
         
       }
     }
-    for (int k = 0; k < _monsters.length; k++) {
-      _monsters[k].update();
-      _monsters[k].move();
-      _monsters[k].drawIt();
-    }
-  }
+  } 
 
   void update() {
     _currentTime = millis();

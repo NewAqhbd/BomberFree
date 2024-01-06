@@ -2,19 +2,17 @@ class Monster {
   PVector _position;
   PVector _moveDirection;
   int _cellX, _cellY;
-  float _size;
   PImage _sprites;
   PImage _monsterSprite;
   float _verticalOffset;
   Board _board;
 
-  Monster(PVector position, int cellX, int cellY, float size, Board board) {
+  Monster(PVector position, int cellX, int cellY, Board board) {
     _position = position;
     _moveDirection = new PVector(0, 0);
     _cellX = cellX;
     _cellY = cellY;
-    _size = size / 16;
-    _verticalOffset = 4 * _size;
+    _verticalOffset = board._cellSize / 4;
     _sprites = loadImage("data/img/characters.png"); 
     _monsterSprite = _sprites.get(0, 72, 16, 24);
     _board = board;
@@ -64,7 +62,7 @@ class Monster {
 
   void drawIt() {
     imageMode(CENTER);
-    image(_monsterSprite, _position.x, _position.y - _verticalOffset, 16 * _size, 24 * _size);
+    image(_monsterSprite, _position.x, _position.y - _verticalOffset, board._cellSize, board._cellSize * 1.5);
     imageMode(CORNER);
   }
 }
