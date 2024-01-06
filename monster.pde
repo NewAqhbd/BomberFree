@@ -47,9 +47,10 @@ class Monster {
     int cellY = int(adjustedY / _board._cellSize);
 
     if (cellX >= 0 && cellX < _board._nbCellsX && cellY >= 0 && cellY < _board._nbCellsY) {
-      return _board._cells[cellY][cellX] == TypeCell.WALL || 
-      _board._cells[cellY][cellX] == TypeCell.DESTRUCTIBLE_WALL ||
-      _board._cells[cellY][cellX] == TypeCell.EXIT_DOOR ;
+      return _board._cells[cellY][cellX] == TypeCell.WALL 
+      || _board._cells[cellY][cellX] == TypeCell.DESTRUCTIBLE_WALL 
+      || _board._cells[cellY][cellX] == TypeCell.EXIT_DOOR 
+      || _board.isBombInTargetCell(cellX, cellY);
     }
     return false;
   }
