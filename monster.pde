@@ -1,15 +1,25 @@
 class Monster {
   PVector _position;
   PVector _moveDirection;
+  int _speed;
   int _cellX, _cellY;
   PImage _sprites;
   PImage _monsterSprite;
   float _verticalOffset;
   Board _board;
+  PVector[] directions = 
+  {
+    new PVector(1, 0),
+    new PVector(0, 1),
+    new PVector(-1, 0),
+    new PVector(0, -1)
+  };
+  
 
   Monster(PVector position, int cellX, int cellY, Board board) {
     _position = position;
     _moveDirection = new PVector(0, 0);
+    _speed = 2;
     _cellX = cellX;
     _cellY = cellY;
     _verticalOffset = board._cellSize / 4;
@@ -19,45 +29,33 @@ class Monster {
   } 
 
 
-  void move() {
-    if (_moveDirection.x == 0 && _moveDirection.y == 0) {
-      _moveDirection = new PVector(1, 0);
-    }
-    PVector nextPosition = PVector.add(_position, _moveDirection);
-
-    if (collision(nextPosition)) {
-      ArrayList<PVector> directions = new ArrayList<PVector>();
-      directions.add(new PVector(1, 0));
-      directions.add(new PVector(0, 1));
-      directions.add(new PVector(-1, 0));
-      directions.add(new PVector(0, -1));
-      if (directions.size() > 0) {
-        int randomIndex = int(random(directions.size()));
-        _moveDirection = directions.get(randomIndex);
-      }
-    }
-    update();
-  }
-
-//method to avoid walls
+  //method to avoid walls
   boolean collision(PVector position) {
     float adjustedX = position.x + _board._cellSize / 2 * _moveDirection.x;
     float adjustedY = position.y + _board._cellSize / 2 * _moveDirection.y;
     int cellX = int(adjustedX / _board._cellSize);
     int cellY = int(adjustedY / _board._cellSize);
 
-    if (cellX >= 0 && cellX < _board._nbCellsX && cellY >= 0 && cellY < _board._nbCellsY) {
-      return _board._cells[cellY][cellX] == TypeCell.WALL 
-      || _board._cells[cellY][cellX] == TypeCell.DESTRUCTIBLE_WALL 
-      || _board._cells[cellY][cellX] == TypeCell.EXIT_DOOR 
-      || _board.isBombInTargetCell(cellX, cellY);
-    }
-    return false;
+    return _board._cells[cellY][cellX] == TypeCell.WALL 
+    || _board._cells[cellY][cellX] == TypeCell.DESTRUCTIBLE_WALL 
+    || _board._cells[cellY][cellX] == TypeCell.EXIT_DOOR 
+    || _board.isBombInTargetCell(cellX, cellY);
+
   }
 
 
   void update() {
-    _position.add(_moveDirection);
+    if (_moveDirection.x == 0 && _moveDirection.y == 0) {
+       _moveDirection = directions[int(random(4))];  
+    }
+    
+    PVector nextPosition = new PVector(_position.x + _moveDirection.x * _speed, _position.y + _moveDirection.y * _speed);
+    
+    if(collision(nextPosition)) {
+      _moveDirection = directions[int(random(4))];
+    }
+    else  
+      _position = nextPosition;
   }
 
 

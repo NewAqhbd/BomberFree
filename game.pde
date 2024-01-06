@@ -26,7 +26,6 @@ class Game
     _bomb.update(_board, _hero);
     for (int k = 0; k < _monsters.length; k++) {
       _monsters[k].update();
-      _monsters[k].move();
     }
   }
 
