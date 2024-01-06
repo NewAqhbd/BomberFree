@@ -23,7 +23,6 @@ class Board
     _nbCellsX = nbCellsX;
     _nbCellsY = nbCellsY;
     _cellSize = int(min(drawSize.x, drawSize.y) / max(nbCellsX, nbCellsY));  
-    println("cellsize : " + _cellSize);
     _cells = content._cells;
     initHeroPosition = getCellCenter(initHeroPositionX, initHeroPositionY);
     createMonsters(content);

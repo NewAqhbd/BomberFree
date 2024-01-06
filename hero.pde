@@ -1,4 +1,4 @@
-class Hero { //<>//
+class Hero { //<>// //<>//
   // position on screen
   PVector _position;
   int _borderUp, _borderDown, _borderLeft, _borderRight;
@@ -83,8 +83,7 @@ class Hero { //<>//
       nextCellY = _cellY - 1;
     }
     
-    println("NextBorderRight : " + nextBorderRight);
-    println("NextBorderCellX : " + nextBorderRight / board._cellSize);
+
     if (
        direction.x == 1 
     && (board._cells[_cellY][nextBorderRight / board._cellSize] == TypeCell.EMPTY || board._cells[_cellY][nextBorderRight / board._cellSize] == TypeCell.EXIT_DOOR)
