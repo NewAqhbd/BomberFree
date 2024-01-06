@@ -34,10 +34,17 @@ class Bomb {
   
   
   void drop(Board board, Hero hero) {
+    boolean canDrop = true;
+    for (int i = 0; i < hero._arrayBombs.size(); i++) {
+      Bomb bomb = hero._arrayBombs.get(i);
+      if (bomb._cellX == hero._cellX && bomb._cellY == hero._cellY)
+        canDrop = false;
+    } 
+    
     _cellX = hero._cellX;
     _cellY = hero._cellY;
     _position = board.getCellCenter(_cellX,_cellY);
-    if (hero._arrayBombs.size() < hero._nbBombMax) {
+    if (hero._arrayBombs.size() < hero._nbBombMax && canDrop) {
       _timeBombPlanted = millis();
       _currentSpriteIndex = 35;
       _sprite = arrayTileSprites[_currentSpriteIndex];

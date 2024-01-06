@@ -46,13 +46,12 @@ class Board
   }
   
   
+  //Check if a bomb is placed on the cell we want to reach with the hero
   boolean isBombInTargetCell(int nextCellX, int nextCellY) {
-    //Check if a bomb is placed on the cell we want to reach with the hero
     for (int i = 0; i < hero._arrayBombs.size(); i++) {
       Bomb bomb = hero._arrayBombs.get(i);
-      if (bomb._cellX == nextCellX && bomb._cellY == nextCellY) {
+      if (bomb._cellX == nextCellX && bomb._cellY == nextCellY)
         return true;
-      }
     } 
     return false; 
   }
