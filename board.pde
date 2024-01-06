@@ -45,6 +45,18 @@ class Board
   PVector getCellCenter(int i, int j) {
     return new PVector(_drawPosition.x + (i * _cellSize + _cellSize/2) , _drawPosition.y + (j * _cellSize + _cellSize/2));
   }
+  
+  
+  boolean isBombInTargetCell(int nextCellX, int nextCellY) {
+    //Check if a bomb is placed on the cell we want to reach with the hero
+    for (int i = 0; i < hero._arrayBombs.size(); i++) {
+      Bomb bomb = hero._arrayBombs.get(i);
+      if (bomb._cellX == nextCellX && bomb._cellY == nextCellY) {
+        return true;
+      }
+    } 
+    return false; 
+  }
 
 
 
@@ -72,7 +84,11 @@ class Board
             image(arrayTileSprites[44], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
             break;
           case EXIT_DOOR:
-            image(arrayTileSprites[39], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
+            if (_togglSprite)
+              image(arrayTileSprites[38], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);
+            else
+              image(arrayTileSprites[39], _drawPosition.x + j * _cellSize, _drawPosition.y + i * _cellSize, _cellSize, _cellSize);
+            update();
             break;
           default:
             image(arrayTileSprites[63], _drawPosition.x + j*_cellSize, _drawPosition.y + i*_cellSize, _cellSize, _cellSize);

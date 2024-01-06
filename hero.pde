@@ -28,10 +28,10 @@ class Hero { //<>//
   
   Hero(PVector position) {
     _position = position;
-    _borderUp = int(_position.y - board._cellSize * 8);
-    _borderDown = int(_position.y + board._cellSize * 8);
-    _borderLeft = int(_position.x - board._cellSize * 8);
-    _borderRight = int(_position.x + board._cellSize * 8);
+    _borderUp = int(_position.y - board._cellSize / 2);
+    _borderDown = int(_position.y + board._cellSize / 2);
+    _borderLeft = int(_position.x - board._cellSize / 2);
+    _borderRight = int(_position.x + board._cellSize / 2);
     _speed = 6;
     _cellX = int(position.x / board._cellSize);
     _cellY = int(position.y / board._cellSize);
@@ -83,21 +83,27 @@ class Hero { //<>//
       nextCellY = _cellY - 1;
     }
     
+    println("NextBorderRight : " + nextBorderRight);
+    println("NextBorderCellX : " + nextBorderRight / board._cellSize);
     if (
        direction.x == 1 
     && (board._cells[_cellY][nextBorderRight / board._cellSize] == TypeCell.EMPTY || board._cells[_cellY][nextBorderRight / board._cellSize] == TypeCell.EXIT_DOOR)
+    && !board.isBombInTargetCell(nextBorderRight / board._cellSize, _cellY)
     && _position.y == board.getCellCenter(_cellX, _cellY).y //Change Right
     
     || direction.x == -1 
-    && (board._cells[_cellY][nextBorderLeft / board._cellSize] == TypeCell.EMPTY || board._cells[_cellY][nextBorderLeft / board._cellSize] == TypeCell.EXIT_DOOR) 
+    && (board._cells[_cellY][nextBorderLeft / board._cellSize] == TypeCell.EMPTY || board._cells[_cellY][nextBorderLeft / board._cellSize] == TypeCell.EXIT_DOOR)
+    && !board.isBombInTargetCell(nextBorderLeft / board._cellSize, _cellY) 
     && _position.y == board.getCellCenter(_cellX, _cellY).y //Change Left
     
     || direction.y == 1 
     && (board._cells[nextBorderDown / board._cellSize][_cellX] == TypeCell.EMPTY || board._cells[nextBorderDown / board._cellSize][_cellX] == TypeCell.EXIT_DOOR)
+    && !board.isBombInTargetCell(_cellX, nextBorderDown / board._cellSize)
     && _position.x == board.getCellCenter(_cellX, _cellY).x  //Change Down
     
     || direction.y == -1 
     && (board._cells[nextBorderUp / board._cellSize][_cellX] == TypeCell.EMPTY || board._cells[nextBorderUp / board._cellSize][_cellX] == TypeCell.EXIT_DOOR)
+    && !board.isBombInTargetCell(_cellX, nextBorderUp / board._cellSize)
     && _position.x == board.getCellCenter(_cellX, _cellY).x   //Change Up
     ) 
     { 
@@ -109,41 +115,36 @@ class Hero { //<>//
     else if 
     (
        direction.x == 1 
-    && (board._cells[_cellY][nextBorderRight / board._cellSize] != TypeCell.EMPTY || board._cells[_cellY][nextBorderRight / board._cellSize] != TypeCell.EXIT_DOOR)
+    && (board._cells[_cellY][nextBorderRight / board._cellSize] != TypeCell.EMPTY && board._cells[_cellY][nextBorderRight / board._cellSize] != TypeCell.EXIT_DOOR)
+    || board.isBombInTargetCell(nextBorderRight / board._cellSize, _cellY)
     && _position.y == board.getCellCenter(_cellX, _cellY).y
     )
       _position.x = int(board.getCellCenter(_cellX, _cellY).x);
       
     else if (
        direction.x == -1 
-    && (board._cells[_cellY][nextBorderLeft / board._cellSize] != TypeCell.EMPTY || board._cells[_cellY][nextBorderLeft / board._cellSize] != TypeCell.EXIT_DOOR)
+    && (board._cells[_cellY][nextBorderLeft / board._cellSize] != TypeCell.EMPTY && board._cells[_cellY][nextBorderLeft / board._cellSize] != TypeCell.EXIT_DOOR)
+    || board.isBombInTargetCell(nextBorderLeft / board._cellSize, _cellY)
     && _position.y == board.getCellCenter(_cellX, _cellY).y
     )
       _position.x = int(board.getCellCenter(_cellX, _cellY).x);
       
     else if (
        direction.y == 1 
-    && (board._cells[nextBorderDown / board._cellSize][_cellX] != TypeCell.EMPTY || board._cells[nextBorderDown / board._cellSize][_cellX] != TypeCell.EXIT_DOOR)
+    && (board._cells[nextBorderDown / board._cellSize][_cellX] != TypeCell.EMPTY && board._cells[nextBorderDown / board._cellSize][_cellX] != TypeCell.EXIT_DOOR)
+    || board.isBombInTargetCell(_cellX, nextBorderDown / board._cellSize)
     && _position.x == board.getCellCenter(_cellX, _cellY).x
     )  
       _position.y = int(board.getCellCenter(_cellX, _cellY).y);
       
     else if (
        direction.y == -1 
-    && (board._cells[nextBorderUp / board._cellSize][_cellX] != TypeCell.EMPTY || board._cells[nextBorderUp / board._cellSize][_cellX] != TypeCell.EXIT_DOOR)
+    && (board._cells[nextBorderUp / board._cellSize][_cellX] != TypeCell.EMPTY && board._cells[nextBorderUp / board._cellSize][_cellX] != TypeCell.EXIT_DOOR)
+    || board.isBombInTargetCell(_cellX, nextBorderUp / board._cellSize)
     && _position.x == board.getCellCenter(_cellX, _cellY).x
     )
       _position.y = int(board.getCellCenter(_cellX, _cellY).y);
    
-   
-    //Check if a bomb is placed on the cell we want to reach with the hero
-    for (int i = 0; i < _arrayBombs.size(); i++) {
-      Bomb bomb = _arrayBombs.get(i);
-      if (bomb._cellX == nextCellX && bomb._cellY == nextCellY) {
-        bombInTargetCell = true;
-        break;
-      }
-    }
     
     
     //Move towards a walkable cell
