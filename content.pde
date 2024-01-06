@@ -1,7 +1,10 @@
 class Content {
-  PImage _imageSprites;
-  int _spriteSizeX;
-  int _spriteSizeY;   
+  PImage _imageTileSprites;
+  PImage _imageCharSprites;
+  int _spriteTileSizeX;
+  int _spriteTileSizeY;   
+  int _spriteCharSizeX;
+  int _spriteCharSizeY;   
   String[] lines;
   int _nbCellsX; //Second line chosen arbitrarily because same nbCell for each line.
   int _nbCellsY;
@@ -9,10 +12,13 @@ class Content {
   PVector[] _monstersPositions = new PVector[0];
 
 
-  Content(String levelPath, String spritesPath, int spriteSizeX, int spriteSizeY) {
-    _imageSprites = loadImage(spritesPath);
-    _spriteSizeX = spriteSizeX;
-    _spriteSizeY = spriteSizeY;   
+  Content(String levelPath, String tileSpritesPath, String characterSpritesPath, int spriteTileSizeX, int spriteTileSizeY, int spriteCharSizeX, int spriteCharSizeY) {
+    _imageTileSprites = loadImage(tileSpritesPath);
+    _imageCharSprites = loadImage(characterSpritesPath);
+    _spriteTileSizeX = spriteTileSizeX;
+    _spriteTileSizeY = spriteTileSizeY;  
+    _spriteCharSizeX = spriteCharSizeX;
+    _spriteCharSizeY = spriteCharSizeY;  
     String[] lines = loadStrings(levelPath);
     _nbCellsX = lines[1].length(); //Second line chosen arbitrarily beacause same nbCell for each line.
     _nbCellsY = lines.length - 1;
@@ -50,11 +56,19 @@ class Content {
       }
     }
 
-    arraySprites = new PImage[0];
-    for (int y = 0; y < _imageSprites.height; y += _spriteSizeY) {
-      for (int x = 0; x < _imageSprites.width; x += _spriteSizeX) {
-        arraySprites = (PImage[]) append(arraySprites, _imageSprites.get(x, y, _spriteSizeX, _spriteSizeY)); 
+    arrayTileSprites = new PImage[0];
+    for (int y = 0; y < _imageTileSprites.height; y += _spriteTileSizeY) {
+      for (int x = 0; x < _imageTileSprites.width; x += _spriteTileSizeX) {
+        arrayTileSprites = (PImage[]) append(arrayTileSprites, _imageTileSprites.get(x, y, _spriteTileSizeX, _spriteTileSizeY)); 
       }
-    }   
+    }
+    
+    
+    arrayCharSprites = new PImage[0];
+    for (int y = 0; y < _imageCharSprites.height; y += _spriteCharSizeY) {
+      for (int x = 0; x < _imageCharSprites.width; x += _spriteCharSizeX) {
+        arrayCharSprites = (PImage[]) append(arrayCharSprites, _imageCharSprites.get(x, y, _spriteCharSizeX, _spriteCharSizeY)); 
+      }
+    }  
   }
 }

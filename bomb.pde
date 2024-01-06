@@ -15,7 +15,7 @@ class Bomb {
   Bomb(Board board) {
     _toExplode = false;
     _timeToExplode = 3000;
-    _sprite = arraySprites[35];
+    _sprite = arrayTileSprites[35];
     _spriteSize = board._cellSize;
     _position = initHeroPosition;
     _arrayPosBombs = new ArrayList<PVector>();
@@ -40,7 +40,7 @@ class Bomb {
     if (hero._arrayBombs.size() < hero._nbBombMax) {
       _timeBombPlanted = millis();
       _currentSpriteIndex = 35;
-      _sprite = arraySprites[_currentSpriteIndex];
+      _sprite = arrayTileSprites[_currentSpriteIndex];
       hero._arrayBombs.add(new Bomb(hero._explosionRadius, _position, _cellX, _cellY, _timeBombPlanted));
       _arrayPosBombs.add(_position);
     }     
@@ -128,7 +128,7 @@ class Bomb {
         if (_currentSpriteIndex > 37) {
             _currentSpriteIndex = 35;
         }
-      _sprite = arraySprites[_currentSpriteIndex];
+      _sprite = arrayTileSprites[_currentSpriteIndex];
       _timeBombPlanted = millis();
     }
   }

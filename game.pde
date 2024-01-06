@@ -24,6 +24,10 @@ class Game
   void update() {
     _hero.update(_board);
     _bomb.update(_board, _hero);
+    for (int k = 0; k < _monsters.length; k++) {
+      _monsters[k].update();
+      _monsters[k].move();
+    }
   }
 
 
@@ -32,6 +36,9 @@ class Game
     _board.drawIt();
     _bomb.drawIt();
     _hero.drawIt();
+    for (int k = 0; k < _monsters.length; k++) {
+      _monsters[k].drawIt();  
+    }
   }
 
 

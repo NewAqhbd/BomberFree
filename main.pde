@@ -1,5 +1,6 @@
 Game game;
 Hero hero;
+Monster[] _monsters;
 Board board;
 Content boardContent;
 Bomb bomb;
@@ -10,7 +11,8 @@ PVector initHeroPosition;
 int initHeroPositionX;
 int initHeroPositionY;
 PVector[] initMonstersPosition = new PVector[0];
-PImage[] arraySprites;
+PImage[] arrayTileSprites;
+PImage[] arrayCharSprites;
 
 void setup() {
   size(1200, 900);
@@ -23,9 +25,9 @@ void draw() {
   //Initialize game
   if(game1) {
     game1 = false;  
-    boardContent = new Content("levels/level1.txt", "data/img/tiles.png", 16, 16);
+    boardContent = new Content("levels/level1.txt", "data/img/tiles.png", "data/img/characters.png", 16, 16, 16, 24);
     board = new Board(boardContent, coordBoard, sizeBoard, boardContent._nbCellsX, boardContent._nbCellsY);
-    hero = new Hero(initHeroPosition, initHeroPositionX, initHeroPositionY, board._cellSize);
+    hero = new Hero(initHeroPosition);
     bomb = new Bomb(board);
     game = new Game(board, hero, bomb);
   }

@@ -6,7 +6,6 @@ class Hero { //<>//
   // position on board
   int _cellX, _cellY, leftCellX, rightCellX, footsCellY, headCellY;
   // display size
-  float _size;
   // if hero was hit by a bomb
   boolean _wasHit;
   float _verticalOffset;
@@ -27,18 +26,17 @@ class Hero { //<>//
   
   
   
-  Hero(PVector position, int cellX, int cellY, float size) {
+  Hero(PVector position) {
     _position = position;
     _borderUp = int(_position.y - board._cellSize * 8);
     _borderDown = int(_position.y + board._cellSize * 8);
     _borderLeft = int(_position.x - board._cellSize * 8);
     _borderRight = int(_position.x + board._cellSize * 8);
     _speed = 6;
-    _cellX = cellX;
-    _cellY = cellY;
-    _size = size/16;
+    _cellX = int(position.x / board._cellSize);
+    _cellY = int(position.y / board._cellSize);
     _wasHit = false;
-    _verticalOffset = 4 * _size;
+    _verticalOffset = board._cellSize / 4;
     _sprites = loadImage("data/img/characters.png");
     _heroSprite = _sprites.get(16, 0, 16, 24);
     _explosionRadius = 1;
@@ -266,7 +264,7 @@ class Hero { //<>//
 
   void drawIt() {
     imageMode(CENTER);
-    image(_heroSprite, _position.x, _position.y - _verticalOffset, 16 * _size, 24 * _size);
+    image(_heroSprite, _position.x, _position.y - _verticalOffset, board._cellSize, board._cellSize * 1.5);
     imageMode(CORNER);
   }
 }
