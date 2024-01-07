@@ -42,8 +42,8 @@ class Content {
             break;
           case 'B':
             _cells[nbLine-1][nbCell] = TypeCell.EMPTY;
-            initHeroPositionX = nbLine-1;
-            initHeroPositionY = nbCell;
+            initHeroPositionX = nbCell;
+            initHeroPositionY = nbLine-1;
             break;
           case 'M':
             _cells[nbLine-1][nbCell] = TypeCell.EMPTY;
