@@ -1,8 +1,9 @@
-class Hero { //<>// //<>//
+class Hero { //<>// //<>// //<>//
   // position on screen
   PVector _position;
   int _borderUp, _borderDown, _borderLeft, _borderRight;
   int _speed;
+  int _life;
   // position on board
   int _cellX, _cellY, leftCellX, rightCellX, footsCellY, headCellY;
   // display size
@@ -27,12 +28,13 @@ class Hero { //<>// //<>//
   
   
   Hero(PVector position) {
-    _position = position;
+    _position = new PVector(position.x, position.y);
     _borderUp = int(_position.y - board._cellSize / 2);
     _borderDown = int(_position.y + board._cellSize / 2);
     _borderLeft = int(_position.x - board._cellSize / 2);
     _borderRight = int(_position.x + board._cellSize / 2);
     _speed = 6;
+    _life = 3;
     _cellX = int(position.x / board._cellSize);
     _cellY = int(position.y / board._cellSize);
     _wasHit = false;
@@ -48,7 +50,37 @@ class Hero { //<>// //<>//
 
   //Changes of PV, Bonus, wasHit, initPosition ...
   void update(Board board) {
-
+    for (int k = 0; k < _monsters.length; k++) {
+      if (
+      hero._borderLeft < _monsters[k]._borderRight && hero._borderLeft > _monsters[k]._borderLeft && hero._cellY == _monsters[k]._cellY
+      || hero._borderRight < _monsters[k]._borderRight && hero._borderRight > _monsters[k]._borderLeft && hero._cellY == _monsters[k]._cellY
+      || hero._borderUp < _monsters[k]._borderDown && hero._borderUp > _monsters[k]._borderUp && hero._cellX == _monsters[k]._cellX
+      || hero._borderDown < _monsters[k]._borderDown && hero._borderDown > _monsters[k]._borderUp && hero._cellX == _monsters[k]._cellX
+      
+      ) 
+      {
+        _life--;
+        respawn();
+      }
+    }
+  }
+  
+  
+  
+  void respawn() {
+    _position = new PVector(initHeroPosition.x, initHeroPosition.y);
+    _cellX = int(_position.x / board._cellSize);
+    _cellY = int(_position.y / board._cellSize);
+    
+    _borderUp = int(_position.y - board._cellSize / 2);
+    _borderDown = int(_position.y + board._cellSize / 2);
+    _borderLeft = int(_position.x - board._cellSize / 2);
+    _borderRight = int(_position.x + board._cellSize / 2);
+    
+    headCellY = _borderUp / board._cellSize;
+    footsCellY = _borderDown / board._cellSize;
+    leftCellX = _borderLeft / board._cellSize;      
+    rightCellX = _borderRight / board._cellSize;
   }
   
   
@@ -147,7 +179,7 @@ class Hero { //<>// //<>//
     
     
     //Move towards a walkable cell
-    if (!bombInTargetCell && canMove ) {
+    if (!bombInTargetCell && canMove) {
       _cellX = nextCellX;
       _cellY = nextCellY;
       _position.x = nextPosX;
@@ -254,6 +286,7 @@ class Hero { //<>// //<>//
       footsCellY = _borderDown / board._cellSize;
       leftCellX = _borderLeft / board._cellSize;      
       rightCellX = _borderRight / board._cellSize;
+      
   }
   
 
