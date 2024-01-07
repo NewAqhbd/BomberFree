@@ -1,4 +1,4 @@
-class Hero { //<>// //<>// //<>//
+class Hero { //<>// //<>// //<>// //<>//
   // position on screen
   PVector _position;
   int _borderUp, _borderDown, _borderLeft, _borderRight;
