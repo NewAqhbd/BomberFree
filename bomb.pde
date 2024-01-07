@@ -80,6 +80,10 @@ class Bomb {
             board._cells[posY][bombDropped._cellX] = TypeCell.EMPTY;
             break;
           }
+          if (hero._cellX == bombDropped._cellX && hero._cellY == posY) {
+            hero.respawn();
+            hero._life -= 1;            
+          }
         }
         
         //Explosion Down
@@ -95,6 +99,10 @@ class Bomb {
             posY = bombDropped._cellY;
             break;
           }
+          if (hero._cellX == bombDropped._cellX && hero._cellY == posY) {
+            hero.respawn();
+            hero._life -= 1;            
+          }
         }
         
        //Explosion Left
@@ -109,6 +117,10 @@ class Bomb {
             board._cells[bombDropped._cellY][posX] = TypeCell.EMPTY;
             break;
           }
+          if (hero._cellY == bombDropped._cellY && hero._cellX == posX) {
+            hero.respawn();
+            hero._life -= 1;            
+          }
         }
         
         //Explosion Right
@@ -122,6 +134,10 @@ class Bomb {
           if (board._cells[bombDropped._cellY][posX] == TypeCell.DESTRUCTIBLE_WALL) {
             board._cells[bombDropped._cellY][posX] = TypeCell.EMPTY;
             break;
+          }
+          if (hero._cellY == bombDropped._cellY && hero._cellX == posX) {
+            hero.respawn();
+            hero._life -= 1;            
           }
         }
 
