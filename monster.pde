@@ -1,5 +1,6 @@
 class Monster {
   PVector _position;
+  int _borderUp, _borderDown, _borderLeft, _borderRight;
   PVector _moveDirection;
   int _speed;
   int _cellX, _cellY;
@@ -18,6 +19,10 @@ class Monster {
 
   Monster(PVector position, int cellX, int cellY, Board board) {
     _position = position;
+    _borderUp = int(_position.y - board._cellSize / 2);
+    _borderDown = int(_position.y + board._cellSize / 2);
+    _borderLeft = int(_position.x - board._cellSize / 2);
+    _borderRight = int(_position.x + board._cellSize / 2);
     _moveDirection = new PVector(0, 0);
     _speed = 2;
     _cellX = cellX;
@@ -49,13 +54,22 @@ class Monster {
        _moveDirection = directions[int(random(4))];  
     }
     
-    PVector nextPosition = new PVector(_position.x + _moveDirection.x * _speed, _position.y + _moveDirection.y * _speed);
+    PVector nextPosition = new PVector(_position.x + _moveDirection.x * _speed, _position.y + _moveDirection.y * _speed);  
     
-    if(collision(nextPosition)) {
+    if (collision(nextPosition)) {
       _moveDirection = directions[int(random(4))];
     }
-    else  
+    else {
       _position = nextPosition;
+      
+      _cellX = int(_position.x / board._cellSize);
+      _cellY = int(_position.y / board._cellSize);
+      
+      _borderUp = int(_position.y - board._cellSize / 2);
+      _borderDown = int(_position.y + board._cellSize / 2);
+      _borderLeft = int(_position.x - board._cellSize / 2);
+      _borderRight = int(_position.x + board._cellSize / 2);
+    }
   }
 
 

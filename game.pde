@@ -34,10 +34,10 @@ class Game
   void drawIt() {
     _board.drawIt();
     _bomb.drawIt();
-    _hero.drawIt();
     for (int k = 0; k < _monsters.length; k++) {
       _monsters[k].drawIt();  
     }
+    _hero.drawIt();
   }
 
 

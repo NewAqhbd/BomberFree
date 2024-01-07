@@ -17,7 +17,7 @@ class Bomb {
     _timeToExplode = 3000;
     _sprite = arrayTileSprites[35];
     _spriteSize = board._cellSize;
-    _position = initHeroPosition;
+    _position = new PVector(initHeroPosition.x, initHeroPosition.y);
     _arrayPosBombs = new ArrayList<PVector>();
   }
   
@@ -56,8 +56,8 @@ class Bomb {
   
 
   //Update the state of each hero's bombs and their surrounding area
-  void update(Board board, Hero hero) { //<>//
-    for (int nbBomb = 0; nbBomb < hero._arrayBombs.size(); nbBomb++) { //<>//
+  void update(Board board, Hero hero) { //<>// //<>//
+    for (int nbBomb = 0; nbBomb < hero._arrayBombs.size(); nbBomb++) { //<>// //<>//
       Bomb bombDropped = hero._arrayBombs.get(nbBomb);
       if(millis() - bombDropped._timeBombPlanted > _timeToExplode) {
         bombDropped._toExplode = true;
